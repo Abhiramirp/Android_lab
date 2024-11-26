@@ -1,0 +1,110 @@
+main activity.kt:
+
+package com.example.lifecycle
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+
+import androidx.appcompat.app.AppCompatActivity
+
+import android.widget.*
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var stateTextView: TextView
+    private lateinit var oncreateButton:Button
+    private lateinit var onstartButton: Button
+    private lateinit var onresumeButton: Button
+
+    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
+
+        stateTextView = findViewById(R.id.state)
+        oncreateButton = findViewById(R.id.oncreate)
+        onstartButton = findViewById(R.id.onstart)
+        onresumeButton = findViewById(R.id.onresume)
+
+        stateTextView.text="LIFECYCLE STATE"
+
+        oncreateButton.setOnClickListener {
+            stateTextView.text="ONCREATE:ACTIVITY IS CREATED"
+        }
+
+        onstartButton.setOnClickListener {
+            stateTextView.text="ONSTART:ACTIVITY IS STARTED"
+        }
+
+        onresumeButton.setOnClickListener {
+            stateTextView.text="ONRESUME:ACTIVITY IS RESUMED"
+        }
+        }
+
+    @SuppressLint("SetTextI18n")
+    override fun onStart() {
+        super.onStart()
+        stateTextView.text="activity is visible"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        "activity is in foreground".also { stateTextView.text = it }
+    }
+    }
+
+activity main.xml:
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LIFECYCLE STATE"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <GridLayout
+        android:layout_width="302dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="70dp"
+        android:rowCount="7">
+
+
+        <Button
+            android:id="@+id/oncreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:text="onCreate()" />
+
+        <Button
+            android:id="@+id/onstart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:text="onStart()" />
+
+        <Button
+            android:id="@+id/onresume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:text="onResume()" />
+
+
+    </GridLayout>
+</RelativeLayout>
